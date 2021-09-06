@@ -4,7 +4,7 @@ import ProductList from './Components/ProductList';
 import Navi from './Components/Navi';
 import { Container, Row, Col } from 'reactstrap';
 import { useState, useEffect } from "react";
-
+import Alertify from "alertifyjs"
 
 function App() {
   //burada kapsülleme kullanıyoruz best prtactise açısından daha avantajlı
@@ -61,10 +61,20 @@ console.log("cart ilk hal:", cart)
 
  setCart([...newCart])
    console.log("cart son hal:", cart)
+   Alertify.success(product.name  +  " added to cart", 2)
+}
+
+ const removeCart = (product) => {
+
+
+ let newCard=cart.filter(c => c.product.productID !== product.productID)
+ setCart(newCard)
+
+ Alertify.error(product.name  +  " deleted   to cart", 2)
 }
   return (
     <Container>
-      <Navi cart = {cart} />
+      <Navi  cart = {cart} removeCart={removeCart} />
       <Row>
         <Col xs="3">
           <CategoryList currentCategory={currentCategory} changeCategory={changeCategory} info={categoryInfo} />

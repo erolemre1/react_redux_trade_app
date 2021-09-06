@@ -16,15 +16,16 @@ function CardSummary(props) {
         return (
             <UncontrolledDropdown nav inNavbar className="border text-success">
                 <DropdownToggle nav caret className=" text-success">
-                    Basket - {props.cart.length}
+                <i class="fas fa-shopping-basket"></i>   Basket - {props.cart.length}
                 </DropdownToggle>
                 <DropdownMenu right>
                     {props.cart.map(cartItem => (
                         <DropdownItem key={cartItem.product.id}>
+                         
                             {cartItem.product.name}
-                            - <Badge className="bg-success">
+                            - <Badge className="bg-success h6">
                                 {cartItem.quantity}
-                            </Badge>
+                            </Badge>  <i onClick={()=> { props.removeCart(cartItem.product)}} className="far fa-trash-alt text-danger font-weight-bold h5 mx-3"></i> 
                         </DropdownItem>
 
                     ))}
@@ -35,8 +36,8 @@ function CardSummary(props) {
     }
     const renderEmpty = () => {
     return  (<NavItem>
-            <NavLink className ="text-danger border">
-                Basket is Empty
+            <NavLink className ="text-danger border h6">
+            <i class="fas fa-shopping-basket"></i>   Basket is Empty
             </NavLink>
         </NavItem>)
     }
