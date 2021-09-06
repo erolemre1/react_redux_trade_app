@@ -47,9 +47,10 @@ console.log("cart ilk hal:", cart)
   const addtoCart = (product) =>{
     console.log("product",product)
     let newCart = cart
-    //alert(product.name)
+    
     console.log("kart eklendi")
     const addedItem = newCart.find(c => c.product.productID === product.productID);
+    //(c => c.product.productID === product.productID); burada find methoduyla her bir elemanın productIdlerini kontrol edip varsa quantity +1 yapıyoruz yoksa elemanı basıyoruz array içerisine
     if(addedItem){
       addedItem.quantity += 1;
 
