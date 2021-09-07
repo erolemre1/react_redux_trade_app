@@ -2,15 +2,23 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
+import './App.css';
 import reportWebVitals from './reportWebVitals';
 import "bootstrap/dist/css/bootstrap.min.css";
 import "alertifyjs/build/css/alertify.min.css";
+import {BrowserRouter} from "react-router-dom"
 // bootsrapi burda geçmemizin sebebi tüm alt componentlerde kullanmak için
 
 ReactDOM.render(
+  
+  
   <React.StrictMode>
+    <BrowserRouter>
     <App />
-  </React.StrictMode>,
+    </BrowserRouter>
+  </React.StrictMode>
+ 
+  ,
   document.getElementById('root')
 );
 

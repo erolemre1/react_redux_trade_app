@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom';
 import {
     UncontrolledDropdown,
     DropdownToggle,
@@ -29,7 +30,9 @@ function CardSummary(props) {
                         </DropdownItem>
 
                     ))}
-
+   <DropdownItem > 
+       <Link className="text-danger link" to = "cart"> Go to basket</Link>
+         </DropdownItem>
 
                 </DropdownMenu>
             </UncontrolledDropdown>)
@@ -37,7 +40,7 @@ function CardSummary(props) {
     const renderEmpty = () => {
     return  (<NavItem>
             <NavLink className ="text-danger border h6">
-            <i class="fas fa-shopping-basket"></i>   Basket is Empty
+            <i className="fas fa-shopping-basket"></i>   Basket is Empty
             </NavLink>
         </NavItem>)
     }

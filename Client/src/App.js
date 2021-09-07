@@ -4,7 +4,14 @@ import ProductList from './Components/ProductList';
 import Navi from './Components/Navi';
 import { Container, Row, Col } from 'reactstrap';
 import { useState, useEffect } from "react";
-import Alertify from "alertifyjs"
+import Alertify from "alertifyjs";
+import { Route, Switch } from 'react-router';
+import NotFound from './Components/NotFound';
+import CardList from './Components/CardList';
+import Form1 from './Components/Form';
+import Form2 from './Components/Form2';
+
+
 
 function App() {
   //burada kapsülleme kullanıyoruz best prtactise açısından daha avantajlı
@@ -43,44 +50,61 @@ function App() {
       }
       )
   }
-console.log("cart ilk hal:", cart)
-  const addtoCart = (product) =>{
-    console.log("product",product)
+  console.log("cart ilk hal:", cart)
+  const addtoCart = (product) => {
+    console.log("product", product)
     let newCart = cart
-    
+
     console.log("kart eklendi")
     const addedItem = newCart.find(c => c.product.productID === product.productID);
     //(c => c.product.productID === product.productID); burada find methoduyla her bir elemanın productIdlerini kontrol edip varsa quantity +1 yapıyoruz yoksa elemanı basıyoruz array içerisine
-    if(addedItem){
+    if (addedItem) {
       addedItem.quantity += 1;
-
-    }else{
-      newCart.push({product:product , quantity:1})
-
+    } else {
+      newCart.push({ product: product, quantity: 1 })
     }
+    setCart([...newCart])
+    console.log("cart son hal:", cart)
+    Alertify.success(product.name + " added to cart", 2)
+  }
 
- setCart([...newCart])
-   console.log("cart son hal:", cart)
-   Alertify.success(product.name  +  " added to cart", 2)
-}
+  const removeCart = (product) => {
+    let newCard = cart.filter(c => c.product.productID !== product.productID)
+    setCart(newCard)
 
- const removeCart = (product) => {
-
-
- let newCard=cart.filter(c => c.product.productID !== product.productID)
- setCart(newCard)
-
- Alertify.error(product.name  +  " deleted   to cart", 2)
-}
+    Alertify.error(product.name + " deleted   to cart", 2)
+  }
   return (
     <Container>
-      <Navi  cart = {cart} removeCart={removeCart} />
+      <Navi cart={cart} removeCart={removeCart} />
       <Row>
         <Col xs="3">
           <CategoryList currentCategory={currentCategory} changeCategory={changeCategory} info={categoryInfo} />
         </Col>
         <Col xs="9">
-          <ProductList addtoCart={addtoCart} products={products} currentCategory={currentCategory} changeCategory={changeCategory} info={productInfo} />
+          <Switch>
+            <Route exact path="/" render={props => (
+              <ProductList
+              {...props}
+                addtoCart={addtoCart}
+                products={products}
+                currentCategory={currentCategory}
+                changeCategory={changeCategory}
+                info={productInfo} />
+            )} />
+            <Route exact path="/cart" render={props => (
+              <CardList
+              {...props}
+                removeCart={removeCart}
+                cart={cart}
+              />
+            )}  />
+            <Route path="/Form" component={Form1} />
+            <Route path="/Form2" component={Form2} />
+
+            <Route component={NotFound} />
+
+          </Switch>
         </Col>
       </Row>
     </Container>
